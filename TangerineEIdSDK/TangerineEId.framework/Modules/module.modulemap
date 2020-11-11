@@ -1,0 +1,11 @@
+framework module TangerineEId {
+  umbrella header "TangerineEId.h"
+
+  export *
+  module * { export * }
+}
+
+module TangerineEId.Swift {
+    header "TangerineEId-Swift.h"
+    requires objc
+}
