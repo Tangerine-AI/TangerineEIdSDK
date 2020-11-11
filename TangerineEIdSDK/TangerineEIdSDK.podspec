@@ -10,7 +10,7 @@ Pod::Spec.new do |spec|
   spec.license      = "MIT"
   spec.author             = { "Suraj" => "suraj.singh@tangerine.ai" }
   spec.platform     = :ios, "12.2"
-  spec.source       = { :git => "https://github.com/Tangerine-AI/TangerineEIdSDK.git", :tag => "1.0.0" }
+  spec.source       = { :git => "https://github.com/Tangerine-AI/TangerineEIdSDK.git", :tag => "1.0.1" }
   spec.framework = "TangerineEld"
   spec.vendored_frameworks = 'TangerineEld.framework'
   spec.swift_version = "5.0"
