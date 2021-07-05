@@ -1,0 +1,83 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.4 effective-4.1.50 (swiftlang-1205.0.26.9 clang-1205.0.19.55)
+// swift-module-flags: -target armv7-apple-ios10.0 -enable-objc-interop -enable-library-evolution -swift-version 4 -enforce-exclusivity=checked -Onone -module-name TangerineELDSDK
+import CommonCrypto
+import CoreBluetooth
+import Foundation
+import Swift
+@_exported import TangerineELDSDK
+import UIKit
+extension Double {
+  public var cleanStringValue: Swift.String {
+    get
+  }
+}
+public enum APIError : Swift.Error {
+  case noNetworkConnection(message: Swift.String)
+  case dataFormatError(message: Swift.String)
+  case noData(message: Swift.String)
+  case serverError(message: Swift.String)
+  case slotExpired(message: Swift.String)
+  case unknownError(message: Swift.String)
+}
+public protocol TangerineELDManagerDelegate : AnyObject {
+  func gotConnected()
+  func receivedResponse(_ data: Swift.String?)
+  func didDisconnect(_ error: Swift.Error?)
+  func errorOccured(_ errorState: TangerineELDSDK.ELDState)
+  func deviceFound(_ deviceName: Swift.String?)
+}
+public enum ELDState {
+  case getStarted
+  case connecting
+  case bluetoothPoweredOff
+  case bluetoothUnauthorised
+  case failedToConnect
+  case connected
+  case disconnected
+  case unKnown
+  case deviceNotSaved
+  public static func == (a: TangerineELDSDK.ELDState, b: TangerineELDSDK.ELDState) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum CarState : Swift.String {
+  case notDetermined
+  case locked
+  case unLocked
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class TangerineELDManager : ObjectiveC.NSObject {
+  public static var sharedInstance: TangerineELDSDK.TangerineELDManager
+  weak public var delegate: TangerineELDSDK.TangerineELDManagerDelegate?
+  public func connectToDevice()
+  public func scanForDevices()
+  public func disconnect()
+  public func getVinAndVersionCommand()
+  public func isConnected() -> Swift.Bool
+  public func isDeviceSaved() -> Swift.Bool
+  public func saveDevice(_ name: Swift.String)
+  public func clearDevice()
+  @objc deinit
+}
+extension TangerineELDManager : CoreBluetooth.CBCentralManagerDelegate {
+  @objc dynamic public func centralManagerDidUpdateState(_ central: CoreBluetooth.CBCentralManager)
+  @objc dynamic public func centralManager(_ central: CoreBluetooth.CBCentralManager, didDiscover peripheral: CoreBluetooth.CBPeripheral, advertisementData: [Swift.String : Any], rssi RSSI: Foundation.NSNumber)
+  @objc dynamic public func centralManager(_ central: CoreBluetooth.CBCentralManager, didConnect peripheral: CoreBluetooth.CBPeripheral)
+  @objc dynamic public func centralManager(_ central: CoreBluetooth.CBCentralManager, didDisconnectPeripheral peripheral: CoreBluetooth.CBPeripheral, error: Swift.Error?)
+  @objc dynamic public func centralManager(_ central: CoreBluetooth.CBCentralManager, didFailToConnect peripheral: CoreBluetooth.CBPeripheral, error: Swift.Error?)
+}
+extension TangerineELDManager : CoreBluetooth.CBPeripheralDelegate {
+  @objc dynamic public func peripheral(_ peripheral: CoreBluetooth.CBPeripheral, didDiscoverServices error: Swift.Error?)
+  @objc dynamic public func peripheral(_ peripheral: CoreBluetooth.CBPeripheral, didDiscoverCharacteristicsFor service: CoreBluetooth.CBService, error: Swift.Error?)
+  @objc dynamic public func peripheral(_ peripheral: CoreBluetooth.CBPeripheral, didWriteValueFor characteristic: CoreBluetooth.CBCharacteristic, error: Swift.Error?)
+  @objc dynamic public func peripheral(_ peripheral: CoreBluetooth.CBPeripheral, didUpdateValueFor characteristic: CoreBluetooth.CBCharacteristic, error: Swift.Error?)
+}
+public struct DESEncryptor {
+}
